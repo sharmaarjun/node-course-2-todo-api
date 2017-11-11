@@ -8,6 +8,7 @@ var {ObjectID} = require('mongodb');
 
 
 var app = express();
+const port = process.env.Port || 3000;
 
 app.use(bodyParser.json());
 
@@ -63,10 +64,13 @@ Todo.findById(id).then((todo) => {
     res.send({todo});           // In ES6 we use {} as an array
 }).catch((e) => {
      res.status(400).send()});
-
-})
-app.listen(3000, () => {
-    console.log('Started on 3000');
+});
+// app.listen(3000, () => {
+//     console.log('Started on 3000');
+// });
+//-- Changes for Heroku--
+app.listen(port, () => {
+    console.log(`Starting server on Port ${port}`);
 });
 
 
