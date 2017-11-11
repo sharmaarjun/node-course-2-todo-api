@@ -10,6 +10,7 @@ var app = express();
 
 app.use(bodyParser.json());
 
+// <-- Post API -->
 app.post('/todos', (req,res) => {      // Creating todos
     var todo = new Todo({
         text: req.body.text
@@ -21,16 +22,25 @@ app.post('/todos', (req,res) => {      // Creating todos
         res.status(400).send(e);
     })
 });
+// <-- Post API -->
+// app.post('/chal', (req, res) => {
+//     var todo = new Todo({
+//         text: req.body.text
+//     });
+//     todo.save().then((doc) => {
+//         res.send(doc);
+//     }, (e) => {
+//         res.send(e);
+//     })
+// });
 
-app.post('/chal', (req, res) => {
-    var todo = new Todo({
-        text: req.body.text
-    });
-    todo.save().then((doc) => {
-        res.send(doc);
+// <-- Get API -->
+app.get('/todos', (req, res) => {
+    Todo.find().then((todos) => {
+        res.send({todos})
     }, (e) => {
-        res.send(e);
-    })
+        res.status(400).send(e);
+    });
 });
 
 app.listen(3000, () => {
@@ -39,7 +49,7 @@ app.listen(3000, () => {
 
 
 
-
+module.exports = {app};
 
 
 
